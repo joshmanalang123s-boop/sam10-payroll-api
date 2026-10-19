@@ -119,7 +119,13 @@ $router->post('/api/payslips/(\d+)/generate', function ($id) {
         'ContentType' => 'application/pdf',
     ]);
 
-    respond(['payroll_id' => $s['payroll_id'], 'payslip_file' => $key], 200, 'Payslip generated and uploaded.');
+    $bucket = getenv('BUCKET');
+    $bucketUrl = "https://{$bucket}.s3.amazonaws.com";
+    respond([
+        'payroll_id'   => $s['payroll_id'],
+        'payslip_file' => "$bucketUrl/$key",
+        's3_key'       => $key,
+    ], 200, 'Payslip generated and uploaded.');
 });
 
 $router->run();
