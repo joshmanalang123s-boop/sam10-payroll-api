@@ -1,0 +1,29 @@
+service: sam10-payroll-api
+provider:
+  name: aws
+  region: ap-southeast-1
+  environment:
+    BUCKET: lambda-payslips-josh
+    BUCKET_REGION: us-east-1
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action: s3:PutObject
+          Resource: arn:aws:s3:::lambda-payslips-josh/payslips/*
+plugins:
+  - ./vendor/bref/bref
+functions:
+  api:
+    handler: index.php
+    runtime: php-83-fpm
+    timeout: 28
+    events:
+      - httpApi: '*'
+package:
+  patterns:
+    - '!node_modules/**'
+    - '!tests/**'
+    - '!src/**'
+    - '!test/**'
+    - 'data/**'

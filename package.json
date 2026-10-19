@@ -1,0 +1,12 @@
+{
+  "name": "sam10-payroll-api",
+  "version": "1.0.0",
+  "description": "Simple payroll API: computes payslips and stores them in S3 (Serverless Framework + AWS Lambda)",
+  "private": true,
+  "scripts": {
+    "test": "node test/local.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.600.0"
+  }
+}
